@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paper Generator</title>
+    <!-- Link to Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Add Font Awesome for icons (optional) -->
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</head>
+
+<body class="bg-gray-500 text-gray-900">
+
+    <!-- Navigation Bar -->
+    <nav class="bg-blue-800 shadow-md fixed w-full z-10 top-0 left-0">
+        <div class="max-w-7xl mx-auto px-4 py-3">
+            <div class="flex justify-between items-center">
+                <!-- Logo -->
+                <a href="#" class="text-white text-2xl font-semibold hover:text-yellow-400 transition duration-300">Paper Generator</a>
+
+                <!-- Menu Items -->
+                <div class="hidden md:flex space-x-6">
+                    <a href="{% url 'select_grade'%}" class="text-white hover:text-yellow-300 transition duration-300">Home</a>
+                    <a href="#" class="text-white hover:text-yellow-300 transition duration-300">About</a>
+                    <a href="#" class="text-white hover:text-yellow-300 transition duration-300">Contact</a>
+                    <a href="#" class="text-white hover:text-yellow-300 transition duration-300">Generate Paper</a>
+                </div>
+
+                <!-- Hamburger Icon for mobile menu -->
+                <button class="md:hidden text-white focus:outline-none" id="hamburgerBtn">
+                    <i class="fas fa-bars text-2xl"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div class="md:hidden bg-blue-800" id="mobileMenu">
+            <div class="space-y-4 py-4 px-6">
+                <a href="{% url 'select_grade'%}" class="text-white hover:text-yellow-300 block">Home</a>
+                <a href="#" class="text-white hover:text-yellow-300 block">About</a>
+                <a href="#" class="text-white hover:text-yellow-300 block">Contact</a>
+                <a href="#" class="text-white hover:text-yellow-300 block">Generate Paper</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content Section -->
+    <div class="pt-20 max-w-7xl mx-auto px-4 py-8">
+        <div class="bg-white p-6 rounded-lg shadow-lg">
+            {% block content %}
+            <!-- Page-specific content will go here -->
+            <h1 class="text-4xl font-bold text-center text-gray-900 mb-6">Welcome to the Paper Generator</h1>
+            <p class="text-lg text-center text-gray-700 mb-6">Start generating your papers with our easy-to-use tool. Just follow the steps below to get started.</p>
+            <div class="text-center">
+                <a href="#" class="text-white bg-blue-600 hover:bg-blue-700 px-6 py-3 rounded-lg text-lg transition duration-300">Get Started</a>
+            </div>
+            {% endblock %}
+        </div>
+    </div>
+
+
+
+    <!-- JavaScript for mobile menu toggle -->
+    <script>
+        const hamburgerBtn = document.getElementById('hamburgerBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        hamburgerBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+    </script>
+</body>
+
+</html>

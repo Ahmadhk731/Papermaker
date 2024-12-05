@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto p-6 bg-white shadow-lg rounded-lg mt-10">
+    <!-- Header Section: Logo, School Name, and Date -->
+    <div class="flex items-center justify-between mb-8">
+        <div class="flex items-center">
+            <!-- Space for the School Logo (uncomment if logo is available) -->
+            <div class="w-1/4">
+                {% comment %} <img src="{% static 'logo.png' %}" alt="School Logo" class="h-16"> <!-- Update path as necessary --> {% endcomment %}
+            </div>
+            <div class="mb-6">
+                <p class="text-lg font-medium text-gray-700">School Name: ________________________________</p>
+            </div>
+        </div>
+        <!-- Date on the Top Right -->
+        <div class="text-right w-1/4">
+            <p class="text-sm text-gray-600">{{ current_date|date:"D, d M Y" }}</p> <!-- Display current date dynamically -->
+        </div>
+    </div>
+
+    <!-- Space for Student's Name -->
+    <div class="mb-6">
+        <p class="text-lg font-medium text-gray-700">Student Name: ________________________________</p>
+    </div>
+
+    <h2 class="text-3xl font-semibold text-center text-gray-800 mb-8">Exam Questions for {{ chapter.name }}</h2>
+
+    <!-- MCQs Section -->
+    {% if mcqs %}
+    <h3 class="text-2xl font-semibold text-gray-800 mb-4">Multiple Choice Questions (MCQs)</h3>
+    <ul class="space-y-6">
+        {% for mcq in mcqs %}
+        <li class="bg-gray-50 px-6 py-4 rounded-lg shadow hover:bg-blue-50 transition duration-300">
+            <p class="text-lg text-gray-700"><strong>{{ forloop.counter }}.</strong> {{ mcq.question }}</p>
+            <ul class="pl-6 space-y-2">
+                <li class="text-gray-600">A) {{ mcq.option_a }}</li>
+                <li class="text-gray-600">B) {{ mcq.option_b }}</li>
+                <li class="text-gray-600">C) {{ mcq.option_c }}</li>
+                <li class="text-gray-600">D) {{ mcq.option_d }}</li>
+            </ul>
+            <!-- Correct answer (optional) -->
+            <p class="text-sm text-gray-600 mt-2">Correct Option: {{ mcq.correct_option }}</p>
+        </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p class="text-center text-gray-600 mt-6">No MCQs found for this chapter.</p>
+    {% endif %}
+
+    <!-- Short Questions Section -->
+    {% if shortquestions %}
+    <h3 class="text-2xl font-semibold text-gray-800 mb-4">Short Questions</h3>
+    <ul class="space-y-6">
+        {% for question in shortquestions %}
+        <li class="bg-gray-50 px-6 py-4 rounded-lg shadow hover:bg-blue-50 transition duration-300">
+            <p class="text-lg text-gray-700"><strong>{{ forloop.counter }}.</strong> {{ question.question_text }}</p>
+        </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p class="text-center text-gray-600 mt-6">No short questions found for this chapter.</p>
+    {% endif %}
+
+    <!-- Long Questions Section -->
+    {% if longquestions %}
+    <h3 class="text-2xl font-semibold text-gray-800 mb-4">Long Questions</h3>
+    <ul class="space-y-6">
+        {% for question in longquestions %}
+        <li class="bg-gray-50 px-6 py-4 rounded-lg shadow hover:bg-blue-50 transition duration-300">
+            <p class="text-lg text-gray-700"><strong>{{ forloop.counter }}.</strong> {{ question.question_text }}</p>
+        </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p class="text-center text-gray-600 mt-6">No long questions found for this chapter.</p>
+    {% endif %}
+
+    <!-- PDF Download Button -->
+    <div class="mt-8 text-center">
+        <a href="{% url 'generate_paper' %}?download_pdf=true" class="inline-block px-6 py-2 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700 transition duration-300">
+            Download PDF
+        </a>
+    </div>
+</div>
+{% endblock content %}
